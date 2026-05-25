@@ -16,27 +16,27 @@ async function handleResponse<T>(res: Response): Promise<T> {
 }
 
 export const fetchAll = (): Promise<TextDocument[]> =>
-  fetch(BASE).then(handleResponse);
+  fetch(BASE).then(handleResponse<TextDocument[]>);
 
 export const fetchById = (id: string): Promise<TextDocument> =>
-  fetch(`${BASE}/${id}`).then(handleResponse);
+  fetch(`${BASE}/${id}`).then(handleResponse<TextDocument>);
 
 export const create = (doc: TextDocumentInput): Promise<TextDocument> =>
   fetch(BASE, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(doc),
-  }).then(handleResponse);
+  }).then(handleResponse<TextDocument>);
 
 export const update = (id: string, doc: TextDocumentInput): Promise<TextDocument> =>
   fetch(`${BASE}/${id}`, {
     method: 'PUT',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(doc),
-  }).then(handleResponse);
+  }).then(handleResponse<TextDocument>);
 
 export const remove = (id: string): Promise<void> =>
-  fetch(`${BASE}/${id}`, { method: 'DELETE' }).then(handleResponse);
+  fetch(`${BASE}/${id}`, { method: 'DELETE' }).then(handleResponse<void>);
 
 export const search = (q: string): Promise<TextDocument[]> =>
-  fetch(`${BASE}/search?q=${encodeURIComponent(q)}`).then(handleResponse);
+  fetch(`${BASE}/search?q=${encodeURIComponent(q)}`).then(handleResponse<TextDocument[]>);

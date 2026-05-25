@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: testapp
-          image: testapp:latest  # replace with your registry image, e.g. myregistry/testapp:1.0.0
+          image: localhost:5000/testapp:latest
           imagePullPolicy: IfNotPresent
           env:
             - name: SPRING_ELASTICSEARCH_URIS
@@ -60,4 +60,4 @@ spec:
     - name: http
       port: 80
       targetPort: 8080
-  type: LoadBalancer
+  type: ClusterIP
