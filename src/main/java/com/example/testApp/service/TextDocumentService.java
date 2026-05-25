@@ -8,7 +8,7 @@ import org.springframework.data.elasticsearch.core.SearchHits;
 import org.springframework.data.elasticsearch.core.query.Query;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
+import java.time.Instant;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.StreamSupport;
@@ -25,7 +25,7 @@ public class TextDocumentService {
     }
 
     public TextDocument create(TextDocument doc) {
-        doc.setCreatedAt(LocalDateTime.now());
+        doc.setCreatedAt(Instant.now());
         return repository.save(doc);
     }
 

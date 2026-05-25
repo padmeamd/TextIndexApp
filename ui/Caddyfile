@@ -1,6 +1,11 @@
 :80 {
-    reverse_proxy /api/* testapp:80
-    root * /usr/share/caddy
-    file_server
-    try_files {path} /index.html
+    handle /api/* {
+        uri strip_prefix /api
+        reverse_proxy testapp:80
+    }
+    handle {
+        root * /usr/share/caddy
+        file_server
+        try_files {path} /index.html
+    }
 }

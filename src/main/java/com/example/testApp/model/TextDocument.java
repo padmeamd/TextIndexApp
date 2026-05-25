@@ -1,13 +1,14 @@
 package com.example.testApp.model;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.elasticsearch.annotations.DateFormat;
 import org.springframework.data.elasticsearch.annotations.Document;
 import org.springframework.data.elasticsearch.annotations.Field;
 import org.springframework.data.elasticsearch.annotations.FieldType;
 
-import java.time.LocalDateTime;
+import java.time.Instant;
 
-@Document(indexName = "texts")
+@Document(indexName = "texts", createIndex = false)
 public class TextDocument {
 
     @Id
@@ -19,15 +20,15 @@ public class TextDocument {
     @Field(type = FieldType.Text)
     private String content;
 
-    @Field(type = FieldType.Date)
-    private LocalDateTime createdAt;
+    @Field(type = FieldType.Date, format = {DateFormat.date_optional_time, DateFormat.epoch_millis})
+    private Instant createdAt;
 
     public TextDocument() {}
 
     public TextDocument(String title, String content) {
         this.title = title;
         this.content = content;
-        this.createdAt = LocalDateTime.now();
+        this.createdAt = Instant.now();
     }
 
     public String getId() { return id; }
@@ -39,6 +40,6 @@ public class TextDocument {
     public String getContent() { return content; }
     public void setContent(String content) { this.content = content; }
 
-    public LocalDateTime getCreatedAt() { return createdAt; }
-    public void setCreatedAt(LocalDateTime createdAt) { this.createdAt = createdAt; }
+    public Instant getCreatedAt() { return createdAt; }
+    public void setCreatedAt(Instant createdAt) { this.createdAt = createdAt; }
 }
